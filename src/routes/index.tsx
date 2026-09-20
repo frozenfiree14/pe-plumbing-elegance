@@ -66,7 +66,10 @@ function HomePage() {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 30);
-      const current = [...navItems].reverse().find(([, id]) => document.getElementById(id)?.getBoundingClientRect().top! <= 180);
+      const current = [...navItems].reverse().find(([, id]) => {
+        const section = document.getElementById(id);
+        return section ? section.getBoundingClientRect().top <= 180 : false;
+      });
       if (current) setActive(current[1]);
     };
     onScroll();
